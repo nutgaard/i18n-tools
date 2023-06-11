@@ -1,0 +1,32 @@
+{
+  "argument": {
+    "defaultMessage": "{me} slaps {other} around a bit with a large trout"
+  },
+  "camel-cased-name": {
+    "defaultMessage": "Names of files are camelCased in the look-up-table"
+  },
+  "datetime": {
+    "defaultMessage": "I started this project at {start_time,time,::HHmm} on {start_date,date,::ddMMM}"
+  },
+  "group-by-page/title": {
+    "defaultMessage": "The folder structure is preserved in the look-up-table."
+  },
+  "literal": {
+    "defaultMessage": "A simple literal"
+  },
+  "number": {
+    "defaultMessage": "{smallest,number,integer} is smaller than {biggest,number,integer}.\n\nThe price of this bagel is {bagel_price, number, ::sign-always compact-short currency/GBP}"
+  },
+  "plural": {
+    "defaultMessage": "You searched for {query}, we found;\n{ count, plural,\n    =0 {no results.}\n    one {one result.}\n    other {# results.}\n}"
+  },
+  "select": {
+    "defaultMessage": "I know an awesome programmer.\n{gender,select,\n  male {He}\n  female {She}\n  other {They}\n} know every language."
+  },
+  "selectordinal": {
+    "defaultMessage": "You are { position, selectordinal,\n          one {#st}\n          two {#nd}\n          few {#rd}\n          other {#th}\n        } in the queue."
+  },
+  "tag": {
+    "defaultMessage": "Click <anchor>here</anchor> to get your prize."
+  }
+}

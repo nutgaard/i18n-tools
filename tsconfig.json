@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
 
     "outDir": "lib",
-    "rootDir": "src",
     "types": ["node"]
-  }
+  },
+  "include": ["src"]
 }
