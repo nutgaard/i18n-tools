@@ -24,11 +24,10 @@
     "access": "public"
   },
   "scripts": {
+    "prepare": "husky install",
     "commit": "git-cz",
     "test": "ts-node-esm src/index.ts build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
-    "build": "rm -rf lib && tsc -p .",
-    "prepare": "husky install",
-    "lint": "prettier src --write"
+    "build": "rm -rf lib && tsc -p ."
   },
   "author": "Nicklas Utgaard",
   "license": "MIT",
