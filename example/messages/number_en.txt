@@ -1,0 +1,3 @@
+{smallest,number,integer} is smaller than {biggest,number,integer}.
+
+The price of this bagel is {bagel_price, number, ::sign-always compact-short currency/GBP}

@@ -1,0 +1,1 @@
+Names of files are camelCased in the look-up-table

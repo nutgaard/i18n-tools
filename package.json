@@ -1,0 +1,53 @@
+{
+  "name": "@nutgaard/i18n-tools",
+  "version": "0.0.1",
+  "description": "Tools to work with I18N messages",
+  "keywords": [
+    "I18N",
+    "bundler",
+    "tool",
+    "compiler",
+    "intl"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nutgaard/i18n-tools"
+  },
+  "main": "./lib/index.js",
+  "bin": {
+    "i18n-tool": "src/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "ts-node-esm src/index.ts build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
+    "build": "rm -rf lib && tsc -p .",
+    "prepare": "husky install",
+    "lint": "prettier src --write"
+  },
+  "author": "Nicklas Utgaard",
+  "license": "MIT",
+  "peerDependencies": {
+    "@formatjs/intl": "^2.8.0"
+  },
+  "devDependencies": {
+    "@formatjs/intl": "^2.8.0",
+    "@types/node": "^20.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "@formatjs/cli-lib": "^6.1.2",
+    "@formatjs/icu-messageformat-parser": "^2.5.0",
+    "chokidar": "^3.5.3"
+  },
+  "lint-staged": {
+    "*.{ts,js,css,md}": "prettier --write"
+  }
+}
