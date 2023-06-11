@@ -1,6 +1,6 @@
 {
   "name": "@nutgaard/i18n-tools",
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "description": "Tools to work with I18N messages",
   "keywords": [
     "I18N",
@@ -24,6 +24,7 @@
     "access": "public"
   },
   "scripts": {
+    "commit": "git-cz",
     "test": "ts-node-esm src/index.ts build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
     "build": "rm -rf lib && tsc -p .",
     "prepare": "husky install",
@@ -37,6 +38,8 @@
   "devDependencies": {
     "@formatjs/intl": "^2.8.0",
     "@types/node": "^20.3.0",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
@@ -49,5 +52,10 @@
   },
   "lint-staged": {
     "*.{ts,js,css,md}": "prettier --write"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
