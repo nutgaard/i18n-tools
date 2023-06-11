@@ -1,0 +1,1 @@
+I started this project at {start_time,time,::HHmm} on {start_date,date,::ddMMM}

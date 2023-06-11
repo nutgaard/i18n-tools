@@ -1,0 +1,6 @@
+You are { position, selectordinal,
+          one {#st}
+          two {#nd}
+          few {#rd}
+          other {#th}
+        } in the queue.

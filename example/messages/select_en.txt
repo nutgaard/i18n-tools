@@ -1,0 +1,6 @@
+I know an awesome programmer.
+{gender,select,
+  male {He}
+  female {She}
+  other {They}
+} know every language.
