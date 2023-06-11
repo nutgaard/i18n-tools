@@ -7,6 +7,10 @@ on:
 
 env:
   CI: true
+
+permissions:
+  contents: write
+
 jobs:
   test-build-publish:
     name: Test and build
