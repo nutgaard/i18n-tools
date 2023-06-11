@@ -8,7 +8,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "declaration": true,
+    "declaration": false,
 
     "strict": true,
     "noImplicitReturns": true,
