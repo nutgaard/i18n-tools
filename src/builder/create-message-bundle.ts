@@ -1,5 +1,5 @@
 import { IntlFile } from '../utils/intl-file';
-import { camelCase } from '../utils/utils';
+import { camelCase } from '../utils/string-utils';
 
 export interface IntlLocaleBundle {
     [locale: string]: IntlBundle;

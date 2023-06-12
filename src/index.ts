@@ -6,19 +6,28 @@ import HelpCmd from './commands/help';
 import ValidateCmd from './commands/validate';
 import FixCmd from './commands/fix';
 
-const [runtime, script, ...args] = process.argv;
-const config: Config = readArgs(args);
+try {
+    const [runtime, script, ...args] = process.argv;
+    const config: Config = readArgs(args);
 
-(async () => {
-    if (config.command === 'build') {
-        await BuildCmd.run(config);
-    } else if (config.command === 'watch') {
-        await WatchCmd.run(config);
-    } else if (config.command === 'validate') {
-        await ValidateCmd.run(config);
-    } else if (config.command === 'fix') {
-        await FixCmd.run(config);
+    (async () => {
+        if (config.command === 'build') {
+            await BuildCmd.run(config);
+        } else if (config.command === 'watch') {
+            await WatchCmd.run(config);
+        } else if (config.command === 'validate') {
+            await ValidateCmd.run(config);
+        } else if (config.command === 'fix') {
+            await FixCmd.run(config);
+        } else {
+            await HelpCmd.run(config);
+        }
+    })();
+} catch (e: unknown) {
+    if (e instanceof Error) {
+        console.error(e.message);
     } else {
-        await HelpCmd.run(config);
+        console.error((e as any).toString());
     }
-})();
+    process.exit(1);
+}

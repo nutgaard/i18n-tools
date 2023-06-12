@@ -13,7 +13,10 @@ export function readArgs(args: string[]): Config {
         switch (option) {
             case '--format':
             case '-f':
-                config.bundleFormat = isValidFormat(value) ? value : 'formatjs';
+                if (!isValidFormat(value)) {
+                    throw new Error(`Invalid format: ${value}. Must be one of: ${validFormats.join(', ')}`);
+                }
+                config.bundleFormat = value;
                 break;
             case '--typescript':
                 config.typescript = true;
@@ -31,12 +34,12 @@ export function readArgs(args: string[]): Config {
     }
 
     if (config.ast && config.bundleFormat !== 'formatjs') {
-        console.error(`Cannot compile output formats other than 'formatjs'`);
-        process.exit(1);
+        throw new Error(`Cannot compile output formats other than 'formatjs'`);
     }
     return config;
 }
 
+const validFormats = ['script', 'json', 'formatjs'];
 function isValidFormat(value: string): value is Format {
-    return ['script', 'json', 'formatjs'].includes(value);
+    return validFormats.includes(value);
 }

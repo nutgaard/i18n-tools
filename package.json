@@ -26,7 +26,8 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "test": "ts-node-esm src/index.ts build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
+    "test": "vitest --coverage",
+    "test-local": "ts-node-esm src/index.ts build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
     "build": "rm -rf lib && tsc -p ."
   },
   "author": "Nicklas Utgaard",
@@ -37,12 +38,15 @@
   "devDependencies": {
     "@formatjs/intl": "^2.8.0",
     "@types/node": "^20.3.0",
+    "@vitest/coverage-v8": "^0.32.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
+    "memfs": "^3.5.3",
     "prettier": "^2.8.8",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "vitest": "^0.32.0"
   },
   "dependencies": {
     "@formatjs/cli-lib": "^6.1.2",

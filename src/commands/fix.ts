@@ -1,8 +1,8 @@
-import fs from 'fs';
 import path from 'path';
 import { Config } from '../config';
 import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
+import { getFilesystem } from '../utils/get-filesystem';
 
 export default class Fix {
     static async run(config: Config) {
@@ -22,7 +22,7 @@ export default class Fix {
             filecreated.add(filename);
 
             console.log(`Creating '${filename}'`);
-            fs.writeFileSync(filename, `[${error.locale}] TODO`, 'utf-8');
+            getFilesystem().writeFileSync(filename, `[${error.locale}] TODO`, { encoding: 'utf-8' });
         }
     }
 }
