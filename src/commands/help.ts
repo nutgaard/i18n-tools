@@ -9,6 +9,7 @@ Utility for building and compiling I18N bundles
 i18n-tool build <srcDir> <outDir> [...options]
 i18n-tool watch <srcDir> <outDir> [...options]
 i18n-tool validate <srcDir>
+i18n-tool fix <srcDir> <outDir>
 i18n-tool help
 
 Options:

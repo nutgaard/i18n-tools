@@ -1,66 +1,70 @@
 import { IntlFile } from '../utils/intl-file';
 import { groupBy } from '../utils/array-utils';
 import * as SetUtils from '../utils/set-utils';
-import * as process from 'process';
 
-export interface ValidationResult {
+interface ValidationResult {
     error: boolean;
+    errors: ValidationError[];
     printLogs: () => void;
 }
 
-export function validateStructure(files: IntlFile[]): ValidationResult {
-    const byLocale = files.reduce(
+interface ValidationError {
+    locale: string;
+    missingKey: string;
+    keyFoundInLocale: string;
+}
+export function validateStructure(files: IntlFile[], hasFixerListener: boolean = false): ValidationResult {
+    const errors: ValidationError[] = [];
+    const logs: Array<() => void> = [];
+
+    const localeKeyMap: Record<string, string[]> = files.reduce(
         groupBy(
-            (file) => file.locale,
-            (file) => file.textId,
+            (it) => it.locale,
+            (it) => it.textId,
         ),
         {},
     );
-    const [primaryLocale, primaryLocaleTextIds] = Object.entries(byLocale).at(0)!;
-    const mandatoryTextsIds: Set<string> = new Set(primaryLocaleTextIds);
+    const allLocales: string[] = Object.keys(localeKeyMap);
 
-    let errorFound = false;
-    const logs: Array<() => void> = [];
+    for (let i = 0; i < allLocales.length; i++) {
+        for (let j = 0; j < allLocales.length; j++) {
+            if (i === j) continue;
+            const baseLocale = allLocales[i];
+            const otherLocale = allLocales[j];
+            const baseLocaleKeys = new Set(localeKeyMap[baseLocale]);
+            const otherLocaleKeys = new Set(localeKeyMap[otherLocale]);
 
-    for (const [locale, textIds] of Object.entries(byLocale)) {
-        if (locale === primaryLocale) continue;
-
-        const localeSet = new Set<string>(textIds);
-        const missingMandatoryIds = SetUtils.difference(mandatoryTextsIds, localeSet);
-        const extraIds = SetUtils.difference(localeSet, mandatoryTextsIds);
-
-        if (missingMandatoryIds.size > 0) {
-            logs.push(() =>
-                console.error(`Locale '${locale}' is missing ${missingMandatoryIds.size} from '${primaryLocale}'.`),
-            );
-            logs.push(() =>
-                console.log(
-                    Array.from(missingMandatoryIds)
-                        .map((it) => `\t${it}`)
-                        .join('\n'),
-                ),
-            );
+            const missingInBase = SetUtils.difference(otherLocaleKeys, baseLocaleKeys);
+            for (const missingKey of missingInBase) {
+                errors.push({
+                    locale: baseLocale,
+                    keyFoundInLocale: otherLocale,
+                    missingKey: missingKey,
+                });
+            }
+            if (missingInBase.size > 0) {
+                logs.push(() =>
+                    console.log(`Locale ${baseLocale} is missing ${missingInBase.size} from ${otherLocale}`),
+                );
+                logs.push(() =>
+                    console.log(
+                        Array.from(missingInBase)
+                            .map((it) => `\t${it}`)
+                            .join('\n'),
+                    ),
+                );
+                if (hasFixerListener) {
+                    logs.push(() => console.log("\n\nPress 'f' to attempt to fix errors"));
+                }
+            }
         }
-        if (extraIds.size > 0) {
-            logs.push(() =>
-                console.error(`Locale '${locale}' contains ${extraIds.size} texts more then '${primaryLocale}'.`),
-            );
-            logs.push(() =>
-                console.log(
-                    Array.from(extraIds)
-                        .map((it) => `\t${it}`)
-                        .join('\n'),
-                ),
-            );
-        }
-
-        errorFound = errorFound || missingMandatoryIds.size > 0 || extraIds.size > 0;
     }
 
     return {
-        error: errorFound,
+        error: errors.length > 0,
+        errors,
         printLogs() {
-            logs.forEach((logLine) => logLine());
+            logs.forEach((it) => it());
         },
     };
 }

@@ -11,13 +11,14 @@ import * as process from 'process';
 
 interface BuildConfig extends Config {
     exitOnError?: boolean;
+    hasFixerListener?: boolean;
 }
 
 export default class Build {
     static async run(config: BuildConfig) {
         const files = getIntlFiles(config.srcDir);
         if (config.validate) {
-            const { error, printLogs } = validateStructure(files);
+            const { error, printLogs } = validateStructure(files, config.hasFixerListener ?? false);
             if (error) {
                 printLogs();
                 if (config.exitOnError ?? true) {

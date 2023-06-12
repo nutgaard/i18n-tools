@@ -1,9 +1,10 @@
 import { Config, defaultConfig, Format } from '../config';
 
+const outdirRequired = ['build', 'watch', 'fix'];
 export function readArgs(args: string[]): Config {
     const [command, srcDir, ...restArgs] = args;
-    const outDir = command === 'build' || command === 'watch' ? restArgs[0] : '';
-    const options = command === 'build' || command === 'watch' ? restArgs.slice(1) : restArgs;
+    const outDir = outdirRequired.includes(command) ? restArgs[0] : '';
+    const options = outdirRequired.includes(command) ? restArgs.slice(1) : restArgs;
     const config = { ...defaultConfig, command, srcDir, outDir };
 
     for (let i = 0; i < options.length; i++) {
