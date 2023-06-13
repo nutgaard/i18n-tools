@@ -1,11 +1,12 @@
 import path from 'path';
-import { Config } from '../config';
+import { Logger } from 'types';
 import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
 import { getFilesystem } from '../utils/get-filesystem';
+import { FixOptions } from '../config';
 
 export default class Fix {
-    static async run(config: Config) {
+    static async run(logger: Logger, config: FixOptions) {
         const files = getIntlFiles(config.srcDir);
         const result = validateStructure(files);
         if (!result.error) {

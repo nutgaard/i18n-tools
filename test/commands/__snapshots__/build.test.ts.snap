@@ -1,0 +1,139 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`build command > should build lut and compiled 1`] = `
+{
+  "/app/compiled/bundle_en.compiled.json": "{
+  \\"first\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"first content\\"
+    }
+  ],
+  \\"folder/nested/third\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"second content\\"
+    }
+  ],
+  \\"folder/second\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"some content\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_en.json": "{
+  \\"first\\": {
+    \\"defaultMessage\\": \\"first content\\"
+  },
+  \\"folder/nested/third\\": {
+    \\"defaultMessage\\": \\"second content\\"
+  },
+  \\"folder/second\\": {
+    \\"defaultMessage\\": \\"some content\\"
+  }
+}",
+  "/app/compiled/bundle_nb.compiled.json": "{
+  \\"first\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"first content\\"
+    }
+  ],
+  \\"folder/nested/third\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"second content\\"
+    }
+  ],
+  \\"folder/second\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"some content\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_nb.json": "{
+  \\"first\\": {
+    \\"defaultMessage\\": \\"first content\\"
+  },
+  \\"folder/nested/third\\": {
+    \\"defaultMessage\\": \\"second content\\"
+  },
+  \\"folder/second\\": {
+    \\"defaultMessage\\": \\"some content\\"
+  }
+}",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"first\\": () => intl.formatMessage({ id: 'first' }, {}),
+    \\"folder\\": {
+      \\"nested\\": {
+        \\"third\\": () => intl.formatMessage({ id: 'folder/nested/third' }, {}),
+      },
+      \\"second\\": () => intl.formatMessage({ id: 'folder/second' }, {}),
+    },
+  }
+}",
+}
+`;
+
+exports[`build command > should build lut in javascript 1`] = `
+{
+  "/app/compiled/bundle_en.js": "const texts = {
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+};
+
+export default texts;",
+  "/app/compiled/bundle_nb.js": "const texts = {
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+};
+
+export default texts;",
+  "/app/compiled/lut.js": "export function createIntlLUT(intl) {
+  return {
+    \\"first\\": () => intl.formatMessage({ id: 'first' }, {}),
+    \\"folder\\": {
+      \\"second\\": () => intl.formatMessage({ id: 'folder/second' }, {}),
+    },
+  }
+}",
+}
+`;
+
+exports[`build command > should build lut in typescript 1`] = `
+{
+  "/app/compiled/bundle_en.ts": "const texts = {
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+};
+
+export default texts;",
+  "/app/compiled/bundle_nb.ts": "const texts = {
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+};
+
+export default texts;",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"first\\": () => intl.formatMessage({ id: 'first' }, {}),
+    \\"folder\\": {
+      \\"second\\": () => intl.formatMessage({ id: 'folder/second' }, {}),
+    },
+  }
+}",
+}
+`;

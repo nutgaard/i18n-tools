@@ -16,6 +16,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
 
     "outDir": "lib",
     "types": ["node"]

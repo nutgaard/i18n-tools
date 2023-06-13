@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import * as SetUtils from '../src/utils/set-utils';
-import { difference } from '../src/utils/set-utils';
+import * as SetUtils from '../../src/utils/set-utils';
+import { difference } from '../../src/utils/set-utils';
 
 describe('setutils', () => {
     describe('union', () => {

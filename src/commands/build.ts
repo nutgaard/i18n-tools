@@ -1,29 +1,24 @@
-import { compileAndWrite } from '@formatjs/cli-lib';
 import * as path from 'path';
-import { Config } from '../config';
+import { Logger } from 'types';
+import { BuildOptions } from '../config';
 import { createMessageBundle, IntlLocaleBundle } from '../builder/create-message-bundle';
 import { compileIntlTextBundles } from '../builder/compile-intl-text-bundles';
 import { compileIntlLutBundle } from '../builder/compile-intl-lut-bundle';
 import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
-import * as process from 'process';
 import { getFilesystem } from '../utils/get-filesystem';
-
-interface BuildConfig extends Config {
-    exitOnError?: boolean;
-    hasFixerListener?: boolean;
-}
+import { compile } from '../builder/compile-formatjs-bundle';
 
 export default class Build {
-    static async run(config: BuildConfig) {
+    static async run(logger: Logger, config: BuildOptions) {
         const files = getIntlFiles(config.srcDir);
         const fs = getFilesystem();
-        if (config.validate) {
+        if (config.strict) {
             const { error, printLogs } = validateStructure(files, config.hasFixerListener ?? false);
             if (error) {
                 printLogs();
                 if (config.exitOnError ?? true) {
-                    process.exit(1);
+                    throw new Error();
                 }
             }
         }
@@ -39,17 +34,18 @@ export default class Build {
             fs.writeFileSync(path.join(config.outDir, filename), lut, { encoding: 'utf-8' });
         }
 
-        const compiled = compileIntlTextBundles(files, config.bundleFormat);
-        const bundleFileExt = config.bundleFormat === 'script' ? (config.typescript ? 'ts' : 'js') : 'json';
+        const compiled = compileIntlTextBundles(files, config.format);
+        const bundleFileExt = config.format === 'script' ? (config.typescript ? 'ts' : 'js') : 'json';
         for (const [locale, content] of compiled) {
             const filename = path.join(config.outDir, `bundle_${locale}.${bundleFileExt}`);
             fs.writeFileSync(filename, content, { encoding: 'utf-8' });
 
             if (config.ast) {
-                await compileAndWrite([filename], {
+                const compiledFilename = path.join(config.outDir, `bundle_${locale}.compiled.json`);
+                const compiledBundle = await compile([filename], {
                     ast: true,
-                    outFile: path.join(config.outDir, `bundle_${locale}.compiled.json`),
                 });
+                fs.writeFileSync(compiledFilename, compiledBundle, { encoding: 'utf-8' });
             }
         }
     }
