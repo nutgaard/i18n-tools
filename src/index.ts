@@ -20,7 +20,7 @@ try {
         } else if (config.command === 'fix') {
             await FixCmd.run(config);
         } else {
-            await HelpCmd.run(config);
+            await HelpCmd.run();
         }
     })();
 } catch (e: unknown) {

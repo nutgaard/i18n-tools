@@ -1,4 +1,3 @@
-import { compileAndWrite } from '@formatjs/cli-lib';
 import * as path from 'path';
 import { Config } from '../config';
 import { createMessageBundle, IntlLocaleBundle } from '../builder/create-message-bundle';
@@ -8,6 +7,7 @@ import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
 import * as process from 'process';
 import { getFilesystem } from '../utils/get-filesystem';
+import { compile } from '../builder/compile-formatjs-bundle';
 
 interface BuildConfig extends Config {
     exitOnError?: boolean;
@@ -46,10 +46,11 @@ export default class Build {
             fs.writeFileSync(filename, content, { encoding: 'utf-8' });
 
             if (config.ast) {
-                await compileAndWrite([filename], {
+                const compiledFilename = path.join(config.outDir, `bundle_${locale}.compiled.json`);
+                const compiledBundle = await compile([filename], {
                     ast: true,
-                    outFile: path.join(config.outDir, `bundle_${locale}.compiled.json`),
                 });
+                fs.writeFileSync(compiledFilename, compiledBundle, { encoding: 'utf-8' });
             }
         }
     }

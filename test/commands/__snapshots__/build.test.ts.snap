@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`build command > should build lut and compiled 1`] = `
+{
+  "/app/compiled/bundle_en.compiled.json": "{
+  \\"first-of-many\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"first content\\"
+    }
+  ],
+  \\"folder/nested/second-file\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"second content\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_en.json": "{
+  \\"first-of-many\\": {
+    \\"defaultMessage\\": \\"first content\\"
+  },
+  \\"folder/nested/second-file\\": {
+    \\"defaultMessage\\": \\"second content\\"
+  }
+}",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"firstOfMany\\": () => intl.formatMessage({ id: 'first-of-many' }, {}),
+    \\"folder\\": {
+      \\"nested\\": {
+        \\"secondFile\\": () => intl.formatMessage({ id: 'folder/nested/second-file' }, {}),
+      },
+    },
+  }
+}",
+}
+`;
