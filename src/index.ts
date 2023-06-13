@@ -3,7 +3,7 @@ import BuildCmd from './commands/build';
 import WatchCmd from './commands/watch';
 import ValidateCmd from './commands/validate';
 import FixCmd from './commands/fix';
-import { BuildOptions, FixOptions, ValidateOptions, WatchOptions } from './config';
+import { BuildOptions, FixOptions, ValidateOptions, WatchOptions, validFormats } from './config';
 
 program.name('i18n-tool').bin('i18n-tool').description('Utility for building and compiling I18N bundles');
 
@@ -11,7 +11,7 @@ program
     .command('build', 'Bundles files in <srcDir> into i18n files')
     .argument('<srcDir>', 'source folder of your i18n files')
     .argument('<outDir>', 'output folder for your i18n bundles')
-    .option('-f, --format <format>', 'Output format', { default: 'formatjs' })
+    .option('-f, --format <format>', 'Output format', { default: 'formatjs', validator: validFormats })
     .option('--typescript', 'Output script files with typescript', { default: false })
     .option('--strict', 'Run validation before bundling', { default: false })
     .option('--ast', 'Compile generated bundles (only availble with formatjs)', { default: false })
@@ -24,7 +24,7 @@ program
     .command('watch', 'Starts watching and rebundling files in <srcDir> into i18n files')
     .argument('<srcDir>', 'source folder of your i18n files')
     .argument('<outDir>', 'output folder for your i18n bundles')
-    .option('-f, --format <format>', 'Output format', { default: 'formatjs' })
+    .option('-f, --format <format>', 'Output format', { default: 'formatjs', validator: validFormats })
     .option('--typescript', 'Output script files with typescript', { default: false })
     .option('--strict', 'Run validation before bundling', { default: false })
     .option('--ast', 'Compile generated bundles (only availble with formatjs)', { default: false })

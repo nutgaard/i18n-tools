@@ -1,3 +1,4 @@
+export const validFormats = ['script', 'json', 'formatjs'];
 export type Format = 'script' | 'json' | 'formatjs';
 
 export interface BuildOptions {
