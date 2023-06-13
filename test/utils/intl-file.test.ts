@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { vol } from 'memfs';
-import { IntlFile } from '../src/utils/intl-file';
+import { IntlFile } from '../../src/utils/intl-file';
 
 describe('intlfile', () => {
     afterEach(() => {

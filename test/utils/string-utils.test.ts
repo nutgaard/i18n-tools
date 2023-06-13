@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { camelCase } from '../src/utils/string-utils';
+import { camelCase } from '../../src/utils/string-utils';
 
 describe('camelCase', () => {
     it('should remove any non-alphanumerical character, and make next letter captital', () => {

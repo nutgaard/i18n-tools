@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { readArgs } from '../src/utils/read-args';
-import { defaultConfig } from '../src/config';
+import { readArgs } from '../../src/utils/read-args';
+import { defaultConfig } from '../../src/config';
 
 describe('readArgs', () => {
     it('should parse minimal cli command and use defaults', () => {

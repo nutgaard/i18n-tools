@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { groupBy } from '../src/utils/array-utils';
+import { groupBy } from '../../src/utils/array-utils';
 
 const createDummy = (value: any) => ({ id: value.toString(), name: `name_${value.toString()}` });
 

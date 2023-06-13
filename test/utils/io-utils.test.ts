@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { vol } from 'memfs';
-import { getAllFiles } from '../src/utils/io-utils';
+import { getAllFiles } from '../../src/utils/io-utils';
 
 describe('getAllFiles', () => {
     afterEach(() => {
