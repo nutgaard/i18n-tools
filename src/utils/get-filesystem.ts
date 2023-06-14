@@ -1,9 +1,18 @@
 import * as fs from 'fs';
-import memfs, { IFs } from 'memfs';
+import { IFs } from 'memfs';
+
+let memfs: IFs | null = null;
+try {
+    memfs = require('memfs').fs;
+} catch {}
 
 export function getMemFs(): IFs {
-    return memfs.fs;
+    if (memfs !== null) {
+        return memfs;
+    }
+    throw new Error('Illegally tried to access memfs, which should only be used for testing');
 }
+
 export function getFs(): IFs {
     return fs as unknown as IFs;
 }
