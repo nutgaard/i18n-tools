@@ -9,6 +9,7 @@ export interface BuildOptions {
     strict: boolean;
     ast: boolean;
     lut: boolean;
+    timeZone?: string;
     exitOnError?: boolean;
     hasFixerListener?: boolean;
 }
