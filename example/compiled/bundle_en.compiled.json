@@ -33,7 +33,8 @@
         "parsedOptions": {
           "hour": "2-digit",
           "hourCycle": "h23",
-          "minute": "2-digit"
+          "minute": "2-digit",
+          "timeZone": "Europe/Oslo"
         },
         "pattern": "HHmm",
         "type": 1
@@ -49,7 +50,8 @@
       "style": {
         "parsedOptions": {
           "day": "2-digit",
-          "month": "short"
+          "month": "short",
+          "timeZone": "Europe/Oslo"
         },
         "pattern": "ddMMM",
         "type": 1

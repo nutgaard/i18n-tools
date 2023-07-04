@@ -4,12 +4,19 @@
  */
 import { Opts } from '@formatjs/cli-lib/src/compile';
 import { resolveBuiltinFormatter } from '@formatjs/cli-lib/src/formatters';
-import { MessageFormatElement } from '@formatjs/icu-messageformat-parser/types';
-import { parse } from '@formatjs/icu-messageformat-parser';
+import {
+    parse,
+    isDateElement,
+    isTimeElement,
+    isDateTimeSkeleton,
+    MessageFormatElement,
+} from '@formatjs/icu-messageformat-parser';
 import stringify from 'json-stable-stringify';
 import { getFilesystem } from '../utils/get-filesystem';
 
-export async function compile(inputFiles: string[], opts: Opts = {}): Promise<string> {
+export type TZOpts = Opts & { timeZone?: string };
+
+export async function compile(inputFiles: string[], opts: TZOpts = {}): Promise<string> {
     const fs = getFilesystem();
     const { ast, format, skipErrors } = opts;
     const formatter = await resolveBuiltinFormatter(format);
@@ -36,7 +43,7 @@ Message from ${inputFile}: ${compiled[id]}
 `);
             }
             try {
-                const msgAst = parse(compiled[id]);
+                const msgAst = injectTimeZone(opts.timeZone, parse(compiled[id]));
                 messages[id] = compiled[id];
                 messageAsts[id] = msgAst;
                 idsWithFileName[id] = inputFile;
@@ -52,5 +59,15 @@ Message from ${inputFile}: ${compiled[id]}
     return stringify(ast ? messageAsts : messages, {
         space: 2,
         cmp: formatter.compareMessages || undefined,
+    });
+}
+
+function injectTimeZone(timeZone: string | undefined, parts: MessageFormatElement[]): MessageFormatElement[] {
+    if (!timeZone) return parts;
+    return parts.map((part) => {
+        if ((isDateElement(part) || isTimeElement(part)) && isDateTimeSkeleton(part.style)) {
+            part.style.parsedOptions.timeZone = timeZone;
+        }
+        return part;
     });
 }

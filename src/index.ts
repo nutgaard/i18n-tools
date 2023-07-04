@@ -16,6 +16,7 @@ program
     .option('--strict', 'Run validation before bundling', { default: false })
     .option('--ast', 'Compile generated bundles (only availble with formatjs)', { default: false })
     .option('--lut', 'Generate look-up-table', { default: false })
+    .option('-t, --timeZone <timezone>', 'Inject timezone into date/time skeletons')
     .action(({ logger, args, options }) => {
         BuildCmd.run(logger, { ...args, ...options } as unknown as BuildOptions);
     });

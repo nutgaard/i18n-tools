@@ -27,7 +27,7 @@
     "prepare": "husky install",
     "commit": "git-cz",
     "test": "vitest --coverage",
-    "test-local": "node lib/index.js build example/messages example/compiled -f formatjs --ast --lut --strict --typescript",
+    "test-local": "node lib/index.js build example/messages example/compiled -f formatjs --ast --lut --strict --typescript --timeZone Europe/Oslo",
     "build": "rm -rf lib && tsc -p ."
   },
   "author": "Nicklas Utgaard",
