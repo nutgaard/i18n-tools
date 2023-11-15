@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fix command > should create files missing for locales 1`] = `
+{
+  "/app/messages/first_en.txt": "first content",
+  "/app/messages/first_nb.txt": "[nb] TODO",
+  "/app/messages/folder/second_en.txt": "[en] TODO",
+  "/app/messages/folder/second_nb.txt": "some content",
+}
+`;
+
+exports[`fix command > should not exit if no errors are found 1`] = `
+{
+  "/app/messages/first_en.txt": "first content",
+  "/app/messages/first_nb.txt": "first content",
+}
+`;

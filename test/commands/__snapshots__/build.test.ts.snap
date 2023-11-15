@@ -1,5 +1,35 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`build command > should build json object 1`] = `
+{
+  "/app/compiled/bundle_en.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+}",
+  "/app/compiled/bundle_nb.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+}",
+}
+`;
+
+exports[`build command > should build jsonlut object 1`] = `
+{
+  "/app/compiled/bundle_en.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder\\": {
+    \\"second\\": \\"some content\\"
+  }
+}",
+  "/app/compiled/bundle_nb.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder\\": {
+    \\"second\\": \\"some content\\"
+  }
+}",
+}
+`;
+
 exports[`build command > should build lut and compiled 1`] = `
 {
   "/app/compiled/bundle_en.compiled.json": "{
@@ -133,6 +163,360 @@ export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
     \\"folder\\": {
       \\"second\\": () => intl.formatMessage({ id: 'folder/second' }, {}),
     },
+  }
+}",
+}
+`;
+
+exports[`build command > should compile example 1`] = `
+{
+  "/app/compiled/bundle_en.compiled.json": "{
+  \\"argument\\": [
+    {
+      \\"type\\": 1,
+      \\"value\\": \\"me\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" slaps \\"
+    },
+    {
+      \\"type\\": 1,
+      \\"value\\": \\"other\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" around a bit with a large trout\\"
+    }
+  ],
+  \\"camel-cased-name\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"Names of files are camelCased in the look-up-table\\"
+    }
+  ],
+  \\"datetime\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"I started this project at \\"
+    },
+    {
+      \\"style\\": {
+        \\"parsedOptions\\": {
+          \\"hour\\": \\"2-digit\\",
+          \\"hourCycle\\": \\"h23\\",
+          \\"minute\\": \\"2-digit\\"
+        },
+        \\"pattern\\": \\"HHmm\\",
+        \\"type\\": 1
+      },
+      \\"type\\": 4,
+      \\"value\\": \\"start_time\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" on \\"
+    },
+    {
+      \\"style\\": {
+        \\"parsedOptions\\": {
+          \\"day\\": \\"2-digit\\",
+          \\"month\\": \\"short\\"
+        },
+        \\"pattern\\": \\"ddMMM\\",
+        \\"type\\": 1
+      },
+      \\"type\\": 3,
+      \\"value\\": \\"start_date\\"
+    }
+  ],
+  \\"group-by-page/title\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"The folder structure is preserved in the look-up-table.\\"
+    }
+  ],
+  \\"literal\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"A simple literal\\"
+    }
+  ],
+  \\"number\\": [
+    {
+      \\"style\\": \\"integer\\",
+      \\"type\\": 2,
+      \\"value\\": \\"smallest\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" is smaller than \\"
+    },
+    {
+      \\"style\\": \\"integer\\",
+      \\"type\\": 2,
+      \\"value\\": \\"biggest\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\".\\\\n\\\\nThe price of this bagel is \\"
+    },
+    {
+      \\"style\\": {
+        \\"parsedOptions\\": {
+          \\"compactDisplay\\": \\"short\\",
+          \\"currency\\": \\"GBP\\",
+          \\"notation\\": \\"compact\\",
+          \\"signDisplay\\": \\"always\\",
+          \\"style\\": \\"currency\\"
+        },
+        \\"tokens\\": [
+          {
+            \\"options\\": [
+            ],
+            \\"stem\\": \\"sign-always\\"
+          },
+          {
+            \\"options\\": [
+            ],
+            \\"stem\\": \\"compact-short\\"
+          },
+          {
+            \\"options\\": [
+              \\"GBP\\"
+            ],
+            \\"stem\\": \\"currency\\"
+          }
+        ],
+        \\"type\\": 0
+      },
+      \\"type\\": 2,
+      \\"value\\": \\"bagel_price\\"
+    }
+  ],
+  \\"plural\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"You searched for \\"
+    },
+    {
+      \\"type\\": 1,
+      \\"value\\": \\"query\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\", we found;\\\\n\\"
+    },
+    {
+      \\"offset\\": 0,
+      \\"options\\": {
+        \\"=0\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"no results.\\"
+            }
+          ]
+        },
+        \\"one\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"one result.\\"
+            }
+          ]
+        },
+        \\"other\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 7
+            },
+            {
+              \\"type\\": 0,
+              \\"value\\": \\" results.\\"
+            }
+          ]
+        }
+      },
+      \\"pluralType\\": \\"cardinal\\",
+      \\"type\\": 6,
+      \\"value\\": \\"count\\"
+    }
+  ],
+  \\"select\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"I know an awesome programmer.\\\\n\\"
+    },
+    {
+      \\"options\\": {
+        \\"female\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"She\\"
+            }
+          ]
+        },
+        \\"male\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"He\\"
+            }
+          ]
+        },
+        \\"other\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"They\\"
+            }
+          ]
+        }
+      },
+      \\"type\\": 5,
+      \\"value\\": \\"gender\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" know every language.\\"
+    }
+  ],
+  \\"selectordinal\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"You are \\"
+    },
+    {
+      \\"offset\\": 0,
+      \\"options\\": {
+        \\"few\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 7
+            },
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"rd\\"
+            }
+          ]
+        },
+        \\"one\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 7
+            },
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"st\\"
+            }
+          ]
+        },
+        \\"other\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 7
+            },
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"th\\"
+            }
+          ]
+        },
+        \\"two\\": {
+          \\"value\\": [
+            {
+              \\"type\\": 7
+            },
+            {
+              \\"type\\": 0,
+              \\"value\\": \\"nd\\"
+            }
+          ]
+        }
+      },
+      \\"pluralType\\": \\"ordinal\\",
+      \\"type\\": 6,
+      \\"value\\": \\"position\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" in the queue.\\"
+    }
+  ],
+  \\"tag\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"Click \\"
+    },
+    {
+      \\"children\\": [
+        {
+          \\"type\\": 0,
+          \\"value\\": \\"here\\"
+        }
+      ],
+      \\"type\\": 8,
+      \\"value\\": \\"anchor\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" to get your prize.\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_en.json": "{
+  \\"argument\\": {
+    \\"defaultMessage\\": \\"{me} slaps {other} around a bit with a large trout\\"
+  },
+  \\"camel-cased-name\\": {
+    \\"defaultMessage\\": \\"Names of files are camelCased in the look-up-table\\"
+  },
+  \\"datetime\\": {
+    \\"defaultMessage\\": \\"I started this project at {start_time,time,::HHmm} on {start_date,date,::ddMMM}\\"
+  },
+  \\"group-by-page/title\\": {
+    \\"defaultMessage\\": \\"The folder structure is preserved in the look-up-table.\\"
+  },
+  \\"literal\\": {
+    \\"defaultMessage\\": \\"A simple literal\\"
+  },
+  \\"number\\": {
+    \\"defaultMessage\\": \\"{smallest,number,integer} is smaller than {biggest,number,integer}.\\\\n\\\\nThe price of this bagel is {bagel_price, number, ::sign-always compact-short currency/GBP}\\"
+  },
+  \\"plural\\": {
+    \\"defaultMessage\\": \\"You searched for {query}, we found;\\\\n{ count, plural,\\\\n    =0 {no results.}\\\\n    one {one result.}\\\\n    other {# results.}\\\\n}\\"
+  },
+  \\"select\\": {
+    \\"defaultMessage\\": \\"I know an awesome programmer.\\\\n{gender,select,\\\\n  male {He}\\\\n  female {She}\\\\n  other {They}\\\\n} know every language.\\"
+  },
+  \\"selectordinal\\": {
+    \\"defaultMessage\\": \\"You are { position, selectordinal,\\\\n          one {#st}\\\\n          two {#nd}\\\\n          few {#rd}\\\\n          other {#th}\\\\n        } in the queue.\\"
+  },
+  \\"tag\\": {
+    \\"defaultMessage\\": \\"Click <anchor>here</anchor> to get your prize.\\"
+  }
+}",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"argument\\": (args: { me: string;other: string }) => intl.formatMessage({ id: 'argument' }, {me: args.me, other: args.other}),
+    \\"camelCasedName\\": () => intl.formatMessage({ id: 'camel-cased-name' }, {}),
+    \\"datetime\\": (args: { start_time: Date;start_date: Date }) => intl.formatMessage({ id: 'datetime' }, {start_time: args.start_time, start_date: args.start_date}),
+    \\"groupByPage\\": {
+      \\"title\\": () => intl.formatMessage({ id: 'group-by-page/title' }, {}),
+    },
+    \\"literal\\": () => intl.formatMessage({ id: 'literal' }, {}),
+    \\"number\\": (args: { smallest: number;biggest: number;bagel_price: number }) => intl.formatMessage({ id: 'number' }, {smallest: args.smallest, biggest: args.biggest, bagel_price: args.bagel_price}),
+    \\"plural\\": (args: { query: string;count: number }) => intl.formatMessage({ id: 'plural' }, {query: args.query, count: args.count}),
+    \\"select\\": (args: { gender: 'male' | 'female' | 'other' | string }) => intl.formatMessage({ id: 'select' }, {gender: args.gender}),
+    \\"selectordinal\\": (args: { position: number }) => intl.formatMessage({ id: 'selectordinal' }, {position: args.position}),
+    \\"tag\\": (args: { anchor: FormatXMLElementFn<React.ReactNode> }) => intl.formatMessage({ id: 'tag' }, {anchor: args.anchor}),
   }
 }",
 }
