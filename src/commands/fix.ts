@@ -6,12 +6,14 @@ import { getFilesystem } from '../utils/get-filesystem';
 import { FixOptions } from '../config';
 
 export default class Fix {
-    static async run(logger: Logger, config: FixOptions) {
+    static async run(logger: Logger, config: FixOptions, exitOnSuccess: boolean) {
         const files = getIntlFiles(config.srcDir);
         const result = validateStructure(files);
         if (!result.error) {
             console.log('No errors found');
-            process.exit(0);
+            if (exitOnSuccess) {
+                process.exit(0);
+            }
         }
         result.printLogs();
         console.log('Attempting to fix errors...');

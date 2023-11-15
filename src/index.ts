@@ -44,7 +44,7 @@ program
     .command('fix', 'Attempts to fix validation issues by creating missing files')
     .argument('<srcDir>', 'source folder of your i18n files')
     .action(({ logger, args, options }) => {
-        FixCmd.run(logger, { ...args, ...options } as unknown as FixOptions);
+        FixCmd.run(logger, { ...args, ...options } as unknown as FixOptions, true);
     });
 
 program.run();
