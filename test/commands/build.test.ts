@@ -2,6 +2,7 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { vol } from 'memfs';
 import { createLogger } from 'winston';
 import Build from '../../src/commands/build';
+import { buildVolumeFromFs } from '../build-volume-from-fs';
 
 const defaultConfig = {
     srcDir: '/app/messages',
@@ -115,5 +116,20 @@ describe('build command', () => {
                 });
             })(),
         ).rejects.toThrowError('');
+    });
+
+    it('should compile example', async () => {
+        vol.fromNestedJSON(buildVolumeFromFs('example/messages'), '/app/messages');
+
+        await Build.run(createLogger(), {
+            ...defaultConfig,
+            strict: true,
+            typescript: true,
+            ast: true,
+            lut: true,
+            format: 'formatjs',
+        });
+
+        expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
     });
 });
