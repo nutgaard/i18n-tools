@@ -1,5 +1,35 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`build command > should build json object 1`] = `
+{
+  "/app/compiled/bundle_en.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+}",
+  "/app/compiled/bundle_nb.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder/second\\": \\"some content\\"
+}",
+}
+`;
+
+exports[`build command > should build jsonlut object 1`] = `
+{
+  "/app/compiled/bundle_en.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder\\": {
+    \\"second\\": \\"some content\\"
+  }
+}",
+  "/app/compiled/bundle_nb.json": "{
+  \\"first\\": \\"first content\\",
+  \\"folder\\": {
+    \\"second\\": \\"some content\\"
+  }
+}",
+}
+`;
+
 exports[`build command > should build lut and compiled 1`] = `
 {
   "/app/compiled/bundle_en.compiled.json": "{

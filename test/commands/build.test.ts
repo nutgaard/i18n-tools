@@ -95,6 +95,56 @@ describe('build command', () => {
         expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
     });
 
+    it('should build json object', async () => {
+        vol.fromNestedJSON(
+            {
+                'first_en.txt': 'first content',
+                'first_nb.txt': 'first content',
+                folder: {
+                    'second_en.txt': 'some content',
+                    'second_nb.txt': 'some content',
+                },
+            },
+            '/app/messages',
+        );
+
+        await Build.run(createLogger(), {
+            ...defaultConfig,
+            strict: true,
+            typescript: false,
+            ast: false,
+            lut: false,
+            format: 'json',
+        });
+
+        expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
+    });
+
+    it('should build jsonlut object', async () => {
+        vol.fromNestedJSON(
+            {
+                'first_en.txt': 'first content',
+                'first_nb.txt': 'first content',
+                folder: {
+                    'second_en.txt': 'some content',
+                    'second_nb.txt': 'some content',
+                },
+            },
+            '/app/messages',
+        );
+
+        await Build.run(createLogger(), {
+            ...defaultConfig,
+            strict: true,
+            typescript: false,
+            ast: false,
+            lut: false,
+            format: 'jsonlut',
+        });
+
+        expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
+    });
+
     it('should throw error if validation is enabled and texts mismatch', async () => {
         vol.fromNestedJSON(
             {
