@@ -34,4 +34,7 @@ Options:
 
     --lut           Generated look-up-table
                     Default: false
+
+    -t, --timeZone: Inject timezone into date/time skeletons
+                    Default: <none>
 ```
