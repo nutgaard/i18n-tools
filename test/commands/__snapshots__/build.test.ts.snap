@@ -521,3 +521,62 @@ export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
 }",
 }
 `;
+
+exports[`build command > should should inject timezone into skeletons 1`] = `
+{
+  "/app/compiled/bundle_en.compiled.json": "{
+  \\"date\\": [
+    {
+      \\"type\\": 0,
+      \\"value\\": \\"starts \\"
+    },
+    {
+      \\"style\\": {
+        \\"parsedOptions\\": {
+          \\"day\\": \\"2-digit\\",
+          \\"month\\": \\"short\\",
+          \\"timeZone\\": \\"Europe/Oslo\\"
+        },
+        \\"pattern\\": \\"ddMMM\\",
+        \\"type\\": 1
+      },
+      \\"type\\": 3,
+      \\"value\\": \\"date\\"
+    },
+    {
+      \\"type\\": 0,
+      \\"value\\": \\" at \\"
+    },
+    {
+      \\"style\\": {
+        \\"parsedOptions\\": {
+          \\"hour\\": \\"2-digit\\",
+          \\"hourCycle\\": \\"h23\\",
+          \\"minute\\": \\"2-digit\\",
+          \\"timeZone\\": \\"Europe/Oslo\\"
+        },
+        \\"pattern\\": \\"HHmm\\",
+        \\"type\\": 1
+      },
+      \\"type\\": 3,
+      \\"value\\": \\"date\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_en.json": "{
+  \\"date\\": {
+    \\"defaultMessage\\": \\"starts { date, date, ::ddMMM } at { date, date, ::HHmm }\\"
+  }
+}",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"date\\": (args: { date: Date }) => intl.formatMessage({ id: 'date' }, {date: args.date}),
+  }
+}",
+}
+`;

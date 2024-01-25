@@ -145,6 +145,27 @@ describe('build command', () => {
         expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
     });
 
+    it('should should inject timezone into skeletons', async () => {
+        vol.fromNestedJSON(
+            {
+                'date_en.txt': 'starts { date, date, ::ddMMM } at { date, date, ::HHmm }',
+            },
+            '/app/messages',
+        );
+
+        await Build.run(createLogger(), {
+            ...defaultConfig,
+            strict: true,
+            typescript: true,
+            ast: true,
+            lut: true,
+            format: 'formatjs',
+            timeZone: 'Europe/Oslo',
+        });
+
+        expect(vol.toJSON('/app/compiled')).toMatchSnapshot();
+    });
+
     it('should throw error if validation is enabled and texts mismatch', async () => {
         vol.fromNestedJSON(
             {

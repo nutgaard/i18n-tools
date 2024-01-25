@@ -44,6 +44,7 @@ export default class Build {
                 const compiledFilename = path.join(config.outDir, `bundle_${locale}.compiled.json`);
                 const compiledBundle = await compile([filename], {
                     ast: true,
+                    timeZone: config.timeZone,
                 });
                 fs.writeFileSync(compiledFilename, compiledBundle, { encoding: 'utf-8' });
             }
