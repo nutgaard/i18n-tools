@@ -19,8 +19,34 @@ describe('fix command', () => {
             '/app/messages',
         );
 
-        Fix.run(createLogger(), {
-            srcDir: '/app/messages',
-        });
+        Fix.run(
+            createLogger(),
+            {
+                srcDir: '/app/messages',
+            },
+            false,
+        );
+
+        expect(vol.toJSON('/app/messages')).toMatchSnapshot();
+    });
+
+    it('should not exit if no errors are found', () => {
+        vol.fromNestedJSON(
+            {
+                'first_en.txt': 'first content',
+                'first_nb.txt': 'first content',
+            },
+            '/app/messages',
+        );
+
+        Fix.run(
+            createLogger(),
+            {
+                srcDir: '/app/messages',
+            },
+            false,
+        );
+
+        expect(vol.toJSON('/app/messages')).toMatchSnapshot();
     });
 });

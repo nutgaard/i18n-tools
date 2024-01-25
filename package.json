@@ -15,7 +15,7 @@
   },
   "main": "./lib/index.js",
   "bin": {
-    "i18n-tool": "lib/index.js"
+    "i18n-tool": "i18n-tool"
   },
   "files": [
     "lib"

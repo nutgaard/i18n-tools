@@ -1,5 +1,5 @@
-export const validFormats = ['script', 'json', 'formatjs'];
-export type Format = 'script' | 'json' | 'formatjs';
+export const validFormats = ['script', 'json', 'jsonlut', 'formatjs'];
+export type Format = 'script' | 'json' | 'jsonlut' | 'formatjs';
 
 export interface BuildOptions {
     srcDir: string;

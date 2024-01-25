@@ -30,7 +30,7 @@ export default class Watch {
         process.stdin.on('keypress', (ch: string, key: Key) => {
             if (key.ctrl && key.name === 'c') process.exit(0);
             if (key.name === 'f') {
-                Fix.run(logger, config);
+                Fix.run(logger, config, false);
             }
         });
         process.stdin.setRawMode(true);
