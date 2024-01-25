@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 16, 18, 19 ]
+        node: [ 16, 18, 20 ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v3
@@ -42,7 +42,7 @@ jobs:
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
-        if: ${{ matrix.node == '18' }}
+        if: ${{ matrix.node == '20' }}
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
