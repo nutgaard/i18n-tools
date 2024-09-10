@@ -9,6 +9,9 @@ import {
     isDateElement,
     isTimeElement,
     isDateTimeSkeleton,
+    isTagElement,
+    isPluralElement,
+    isSelectElement,
     MessageFormatElement,
 } from '@formatjs/icu-messageformat-parser';
 import stringify from 'json-stable-stringify';
@@ -67,6 +70,18 @@ function injectTimeZone(timeZone: string | undefined, parts: MessageFormatElemen
     return parts.map((part) => {
         if ((isDateElement(part) || isTimeElement(part)) && isDateTimeSkeleton(part.style)) {
             part.style.parsedOptions.timeZone = timeZone;
+        } else if (isTagElement(part)) {
+            return {
+                ...part,
+                children: injectTimeZone(timeZone, part.children),
+            };
+        } else if (isPluralElement(part) || isSelectElement(part)) {
+            const options = Object.fromEntries(
+                Object.entries(part.options).map(([key, value]) => {
+                    return [key, { ...value, value: injectTimeZone(timeZone, value.value) }];
+                }),
+            );
+            return { ...part, options };
         }
         return part;
     });

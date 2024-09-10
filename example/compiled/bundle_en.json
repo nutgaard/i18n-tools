@@ -5,6 +5,9 @@
   "camel-cased-name": {
     "defaultMessage": "Names of files are camelCased in the look-up-table"
   },
+  "datePluralAndTag": {
+    "defaultMessage": "<div>\n{gender,select,\n  male {<p>He was born {date,time,::ddMMM}</p>}\n  female {<p>She was born {date,time,::ddMMM}</p>}\n  other {<p>They was born {date,time,::ddMMM}</p>}\n}.\n</div>"
+  },
   "datetime": {
     "defaultMessage": "I started this project at {start_time,time,::HHmm} on {start_date,date,::ddMMM}"
   },

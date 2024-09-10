@@ -7,6 +7,7 @@ export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
   return {
     "argument": (args: { me: string;other: string }) => intl.formatMessage({ id: 'argument' }, {me: args.me, other: args.other}),
     "camelCasedName": () => intl.formatMessage({ id: 'camel-cased-name' }, {}),
+    "datePluralAndTag": (args: { div: FormatXMLElementFn<React.ReactNode>;gender: 'male' | 'female' | 'other' | string;p: FormatXMLElementFn<React.ReactNode>;date: Date }) => intl.formatMessage({ id: 'datePluralAndTag' }, {div: args.div, gender: args.gender, p: args.p, date: args.date}),
     "datetime": (args: { start_time: Date;start_date: Date }) => intl.formatMessage({ id: 'datetime' }, {start_time: args.start_time, start_date: args.start_date}),
     "groupByPage": {
       "title": () => intl.formatMessage({ id: 'group-by-page/title' }, {}),
