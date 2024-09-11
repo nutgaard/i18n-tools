@@ -1,8 +1,7 @@
 import { extractVariablesFromAST } from './extract-variables-from-ast';
 import { getTsArgumentDescription } from './get-ts-argument-description';
-import { parse } from '@formatjs/icu-messageformat-parser';
+import { MessageFormatElement, parse } from '@formatjs/icu-messageformat-parser';
 import { camelCase } from '../utils/string-utils';
-import { MessageFormatElement } from '@formatjs/icu-messageformat-parser/types';
 
 export function compileIcuMessageIntoFunction(id: string, message: string, useTypescript: boolean): [string, string] {
     const ast: MessageFormatElement[] = parse(message, { ignoreTag: false });

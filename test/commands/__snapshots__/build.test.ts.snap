@@ -195,6 +195,106 @@ exports[`build command > should compile example 1`] = `
       \\"value\\": \\"Names of files are camelCased in the look-up-table\\"
     }
   ],
+  \\"datePluralAndTag\\": [
+    {
+      \\"children\\": [
+        {
+          \\"type\\": 0,
+          \\"value\\": \\"\\\\n\\"
+        },
+        {
+          \\"options\\": {
+            \\"female\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"She was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            },
+            \\"male\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"He was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            },
+            \\"other\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"They was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            }
+          },
+          \\"type\\": 5,
+          \\"value\\": \\"gender\\"
+        },
+        {
+          \\"type\\": 0,
+          \\"value\\": \\".\\\\n\\"
+        }
+      ],
+      \\"type\\": 8,
+      \\"value\\": \\"div\\"
+    }
+  ],
   \\"datetime\\": [
     {
       \\"type\\": 0,
@@ -473,6 +573,9 @@ exports[`build command > should compile example 1`] = `
   \\"camel-cased-name\\": {
     \\"defaultMessage\\": \\"Names of files are camelCased in the look-up-table\\"
   },
+  \\"datePluralAndTag\\": {
+    \\"defaultMessage\\": \\"<div>\\\\n{gender,select,\\\\n  male {<p>He was born {date,time,::ddMMM}</p>}\\\\n  female {<p>She was born {date,time,::ddMMM}</p>}\\\\n  other {<p>They was born {date,time,::ddMMM}</p>}\\\\n}.\\\\n</div>\\"
+  },
   \\"datetime\\": {
     \\"defaultMessage\\": \\"I started this project at {start_time,time,::HHmm} on {start_date,date,::ddMMM}\\"
   },
@@ -507,6 +610,7 @@ export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
   return {
     \\"argument\\": (args: { me: string;other: string }) => intl.formatMessage({ id: 'argument' }, {me: args.me, other: args.other}),
     \\"camelCasedName\\": () => intl.formatMessage({ id: 'camel-cased-name' }, {}),
+    \\"datePluralAndTag\\": (args: { div: FormatXMLElementFn<React.ReactNode>;gender: 'male' | 'female' | 'other' | string;p: FormatXMLElementFn<React.ReactNode>;date: Date }) => intl.formatMessage({ id: 'datePluralAndTag' }, {div: args.div, gender: args.gender, p: args.p, date: args.date}),
     \\"datetime\\": (args: { start_time: Date;start_date: Date }) => intl.formatMessage({ id: 'datetime' }, {start_time: args.start_time, start_date: args.start_date}),
     \\"groupByPage\\": {
       \\"title\\": () => intl.formatMessage({ id: 'group-by-page/title' }, {}),
@@ -517,6 +621,131 @@ export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
     \\"select\\": (args: { gender: 'male' | 'female' | 'other' | string }) => intl.formatMessage({ id: 'select' }, {gender: args.gender}),
     \\"selectordinal\\": (args: { position: number }) => intl.formatMessage({ id: 'selectordinal' }, {position: args.position}),
     \\"tag\\": (args: { anchor: FormatXMLElementFn<React.ReactNode> }) => intl.formatMessage({ id: 'tag' }, {anchor: args.anchor}),
+  }
+}",
+}
+`;
+
+exports[`build command > should inject timezone into nested date-skeletons 1`] = `
+{
+  "/app/compiled/bundle_en.compiled.json": "{
+  \\"date\\": [
+    {
+      \\"children\\": [
+        {
+          \\"type\\": 0,
+          \\"value\\": \\"\\\\n\\"
+        },
+        {
+          \\"options\\": {
+            \\"female\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"She was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\",
+                          \\"timeZone\\": \\"Europe/Oslo\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            },
+            \\"male\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"He was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\",
+                          \\"timeZone\\": \\"Europe/Oslo\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            },
+            \\"other\\": {
+              \\"value\\": [
+                {
+                  \\"children\\": [
+                    {
+                      \\"type\\": 0,
+                      \\"value\\": \\"They was born \\"
+                    },
+                    {
+                      \\"style\\": {
+                        \\"parsedOptions\\": {
+                          \\"day\\": \\"2-digit\\",
+                          \\"month\\": \\"short\\",
+                          \\"timeZone\\": \\"Europe/Oslo\\"
+                        },
+                        \\"pattern\\": \\"ddMMM\\",
+                        \\"type\\": 1
+                      },
+                      \\"type\\": 4,
+                      \\"value\\": \\"date\\"
+                    }
+                  ],
+                  \\"type\\": 8,
+                  \\"value\\": \\"p\\"
+                }
+              ]
+            }
+          },
+          \\"type\\": 5,
+          \\"value\\": \\"gender\\"
+        },
+        {
+          \\"type\\": 0,
+          \\"value\\": \\".\\\\n\\"
+        }
+      ],
+      \\"type\\": 8,
+      \\"value\\": \\"div\\"
+    }
+  ]
+}",
+  "/app/compiled/bundle_en.json": "{
+  \\"date\\": {
+    \\"defaultMessage\\": \\"<div>\\\\n{gender,select,\\\\n  male {<p>He was born {date,time,::ddMMM}</p>}\\\\n  female {<p>She was born {date,time,::ddMMM}</p>}\\\\n  other {<p>They was born {date,time,::ddMMM}</p>}\\\\n}.\\\\n</div>\\"
+  }
+}",
+  "/app/compiled/lut.ts": "import React from \\"react\\";
+import {IntlShape} from \\"@formatjs/intl\\";
+// @ts-ignore
+import {FormatXMLElementFn} from \\"intl-messageformat\\";
+
+export function createIntlLUT(intl: IntlShape<React.ReactNode>) {
+  return {
+    \\"date\\": (args: { div: FormatXMLElementFn<React.ReactNode>;gender: 'male' | 'female' | 'other' | string;p: FormatXMLElementFn<React.ReactNode>;date: Date }) => intl.formatMessage({ id: 'date' }, {div: args.div, gender: args.gender, p: args.p, date: args.date}),
   }
 }",
 }

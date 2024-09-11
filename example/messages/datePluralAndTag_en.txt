@@ -1,0 +1,7 @@
+<div>
+{gender,select,
+  male {<p>He was born {date,time,::ddMMM}</p>}
+  female {<p>She was born {date,time,::ddMMM}</p>}
+  other {<p>They was born {date,time,::ddMMM}</p>}
+}.
+</div>
