@@ -1,8 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { vol } from 'memfs';
-import { createLogger } from 'winston';
-import Build from '../../src/commands/build';
 import { buildVolumeFromFs } from '../build-volume-from-fs';
+import { runBuildCommand } from '../../src/commands/build';
 
 const defaultConfig = {
     srcDir: '/app/messages',
@@ -33,8 +32,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: true,
             ast: true,
@@ -58,8 +56,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: false,
             ast: false,
@@ -83,8 +80,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: true,
             ast: false,
@@ -108,8 +104,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: false,
             ast: false,
@@ -133,8 +128,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: false,
             ast: false,
@@ -153,8 +147,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: true,
             ast: true,
@@ -182,8 +175,7 @@ describe('build command', () => {
             '/app/messages',
         );
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: true,
             ast: true,
@@ -205,8 +197,7 @@ describe('build command', () => {
 
         expect(
             (async () => {
-                await Build.run(createLogger(), {
-                    ...defaultConfig,
+                await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
                     strict: true,
                     typescript: true,
                     ast: true,
@@ -220,8 +211,7 @@ describe('build command', () => {
     it('should compile example', async () => {
         vol.fromNestedJSON(buildVolumeFromFs('example/messages'), '/app/messages');
 
-        await Build.run(createLogger(), {
-            ...defaultConfig,
+        await runBuildCommand(defaultConfig.srcDir, defaultConfig.outDir, {
             strict: true,
             typescript: true,
             ast: true,
