@@ -1,14 +1,13 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { vol } from 'memfs';
-import { createLogger } from 'winston';
-import Fix from '../../src/commands/fix';
+import { runFixCommand } from '../../src/commands/fix';
 
 describe('fix command', () => {
     afterEach(() => {
         vol.reset();
     });
 
-    it('should create files missing for locales', () => {
+    it('should create files missing for locales', async () => {
         vol.fromNestedJSON(
             {
                 'first_en.txt': 'first content',
@@ -19,18 +18,12 @@ describe('fix command', () => {
             '/app/messages',
         );
 
-        Fix.run(
-            createLogger(),
-            {
-                srcDir: '/app/messages',
-            },
-            false,
-        );
+        await runFixCommand('/app/messages', false);
 
         expect(vol.toJSON('/app/messages')).toMatchSnapshot();
     });
 
-    it('should not exit if no errors are found', () => {
+    it('should not exit if no errors are found', async () => {
         vol.fromNestedJSON(
             {
                 'first_en.txt': 'first content',
@@ -39,13 +32,7 @@ describe('fix command', () => {
             '/app/messages',
         );
 
-        Fix.run(
-            createLogger(),
-            {
-                srcDir: '/app/messages',
-            },
-            false,
-        );
+        await runFixCommand('/app/messages', false);
 
         expect(vol.toJSON('/app/messages')).toMatchSnapshot();
     });

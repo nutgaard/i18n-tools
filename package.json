@@ -49,10 +49,10 @@
     "vitest": "^0.32.0"
   },
   "dependencies": {
-    "@caporal/core": "^2.0.2",
     "@formatjs/cli-lib": "^6.1.2",
     "@formatjs/icu-messageformat-parser": "^2.5.0",
-    "chokidar": "^3.5.3"
+    "chokidar": "^3.5.3",
+    "commander": "^12.1.0"
   },
   "lint-staged": {
     "*.{ts,js,css,md}": "prettier --write"

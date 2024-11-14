@@ -1,17 +1,20 @@
-import { Logger } from 'types';
-import { ValidateOptions } from '../config';
+import { Command, program } from 'commander';
 import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
 
-export default class Validate {
-    static async run(logger: Logger, config: ValidateOptions) {
-        const files = getIntlFiles(config.srcDir);
-        const { error, printLogs } = validateStructure(files);
-        if (error) {
-            printLogs();
-            throw new Error();
-        } else {
-            console.log('No errors found');
-        }
+export const validateCommand: Command = program
+    .createCommand('validate')
+    .description('Validate that every locale contains the same set of keys')
+    .argument('<srcDir>', 'source folder of your i18n files')
+    .action(runValidateCommand);
+
+export async function runValidateCommand(srcDir: string) {
+    const files = getIntlFiles(srcDir);
+    const { error, printLogs } = validateStructure(files);
+    if (error) {
+        printLogs();
+        throw new Error();
+    } else {
+        console.log('No errors found');
     }
 }

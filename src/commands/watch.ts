@@ -1,9 +1,10 @@
+import { Command, program } from 'commander';
 import * as readline from 'readline';
 import * as chokidar from 'chokidar';
-import { Logger } from 'types';
-import { WatchOptions } from '../config';
-import Build from './build';
-import Fix from './fix';
+import { validFormats, WatchOptions } from '../config';
+import { runBuildCommand } from './build';
+import logger from '../utils/logger';
+import { runFixCommand } from './fix';
 
 interface Key {
     sequence: string;
@@ -13,26 +14,38 @@ interface Key {
     shift: boolean;
 }
 
-export default class Watch {
-    static async run(logger: Logger, config: WatchOptions) {
-        const watcher = chokidar.watch(config.srcDir, { ignoreInitial: true });
-        const buildConfig = { ...config, exitOnError: false, hasFixerListener: true };
+export const watchCommand: Command = program
+    .createCommand('watch')
+    .description('Starts watching and rebundling files in <srcDir> into i18n files')
+    .argument('<srcDir>', 'source folder of your i18n files')
+    .argument('<outDir>', 'output folder for your i18n bundles')
+    .addOption(program.createOption('-f, --format <format>', 'Output format').choices(validFormats).default('formatjs'))
+    .option('--typescript', 'Output script files with typescript', false)
+    .option('--strict', 'Run validation before bundling', false)
+    .option('--ast', 'Compile generated bundles (only availble with formatjs)', false)
+    .option('--lut', 'Generate look-up-table', false)
+    .option('-t, --timeZone <timezone>', 'Inject timezone into date/time skeletons')
+    .action(runWatchCommand);
 
-        await Build.run(logger, buildConfig);
-        logger.info('Initial I18N-bundles created');
-        watcher.on('all', (...args) => {
-            logger.info('Recompiling I18N-bundles');
-            Build.run(logger, buildConfig);
-            logger.info('Recompiled I18N-bundles');
-        });
+async function runWatchCommand(srcDir: string, outDir: string, config: WatchOptions) {
+    const watcher = chokidar.watch(srcDir, { ignoreInitial: true });
+    const buildConfig = { ...config, exitOnError: false, hasFixerListener: true };
 
-        readline.emitKeypressEvents(process.stdin);
-        process.stdin.on('keypress', (ch: string, key: Key) => {
-            if (key.ctrl && key.name === 'c') process.exit(0);
-            if (key.name === 'f') {
-                Fix.run(logger, config, false);
-            }
-        });
-        process.stdin.setRawMode(true);
-    }
+    await runBuildCommand(srcDir, outDir, buildConfig);
+
+    logger.info('Initial I18N-bundles created');
+    watcher.on('all', (...args) => {
+        logger.info('Recompiling I18N-bundles');
+        runBuildCommand(srcDir, outDir, buildConfig);
+        logger.info('Recompiled I18N-bundles');
+    });
+
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.on('keypress', (ch: string, key: Key) => {
+        if (key.ctrl && key.name === 'c') process.exit(0);
+        if (key.name === 'f') {
+            runFixCommand(srcDir, false);
+        }
+    });
+    process.stdin.setRawMode(true);
 }
