@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ 16, 18, 20 ]
+        node: [ 18, 20, 22 ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Publish package
-        if: ${{ matrix.node == '20' }}
+        if: ${{ matrix.node == '22' }}
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
