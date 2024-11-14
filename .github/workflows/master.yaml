@@ -19,8 +19,8 @@ jobs:
       matrix:
         node: [ 16, 18, 20 ]
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         name: Setup node ${{ matrix.node }}
         with:
           node-version: ${{ matrix.node }}
@@ -31,16 +31,6 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
-#      - name: Report coverage
-#        if: ${{ matrix.node == '18' }}
-#        uses: codecov/codecov-action@v3
-#      - name: Publish docs
-#        if: ${{ matrix.node == '18' }}
-#        uses: crazy-max/ghaction-github-pages@v2
-#        with:
-#          build_dir: docs
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish package
         if: ${{ matrix.node == '20' }}
         run: npx semantic-release
