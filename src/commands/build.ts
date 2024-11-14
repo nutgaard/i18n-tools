@@ -18,8 +18,10 @@ export const buildCommand: Command = program
     .option('--typescript', 'Output script files with typescript', false)
     .option('--strict', 'Run validation before bundling', false)
     .option('--ast', 'Compile generated bundles (only availble with formatjs)', false)
-    .option('--lut', 'Generate look-up-table', false)
+    .option('--lut', 'Generate look-up-table (only availble with formatjs)', false)
     .option('-t, --timeZone <timezone>', 'Inject timezone into date/time skeletons')
+    .addHelpText('afterAll', '\n')
+    .addHelpText('afterAll', 'Example: i18n-tool build example/messages example/compiled --ast --lut --typescript')
     .action(runBuildCommand);
 
 export async function runBuildCommand(srcDir: string, outDir: string, config: BuildOptions) {
