@@ -5,7 +5,7 @@ import { getFilesystem } from './get-filesystem';
 const languagePattern = /_([^\W_]+)\.\w+$/;
 const removeLanguagePattern = /(?:_[^\W_]+)?\.\w+$/;
 
-function findLocale(path: string): string {
+export function findLocale(path: string): string {
     const match = languagePattern.exec(path);
     if (match) {
         return match[1];
