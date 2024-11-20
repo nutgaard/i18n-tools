@@ -1,7 +1,7 @@
 import { Command, program } from 'commander';
 import * as readline from 'readline';
 import * as chokidar from 'chokidar';
-import { validFormats, WatchOptions } from '../config';
+import { Format } from '../config';
 import { runBuildCommand } from './build';
 import logger from '../utils/logger';
 import { runFixCommand } from './fix';
@@ -13,6 +13,15 @@ interface Key {
     meta: boolean;
     shift: boolean;
 }
+
+interface WatchOptions {
+    format: Format;
+    typescript: boolean;
+    strict: boolean;
+    ast: boolean;
+    lut: boolean;
+}
+const validFormats: Format[] = ['script', 'json', 'jsonlut', 'formatjs'];
 
 export const watchCommand: Command = program
     .createCommand('watch')

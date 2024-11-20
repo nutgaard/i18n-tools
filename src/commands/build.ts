@@ -1,6 +1,6 @@
 import { Command, program } from 'commander';
 import * as path from 'path';
-import { BuildOptions, validFormats } from '../config';
+import { Format } from '../config';
 import { createMessageBundle, IntlLocaleBundle } from '../builder/create-message-bundle';
 import { compileIntlTextBundles } from '../builder/compile-intl-text-bundles';
 import { compileIntlLutBundle } from '../builder/compile-intl-lut-bundle';
@@ -8,6 +8,18 @@ import { getIntlFiles } from '../utils/get-intl-files';
 import { validateStructure } from '../validator/validate';
 import { getFilesystem } from '../utils/get-filesystem';
 import { compile } from '../builder/compile-formatjs-bundle';
+
+interface BuildOptions {
+    format: Format;
+    typescript: boolean;
+    strict: boolean;
+    ast: boolean;
+    lut: boolean;
+    timeZone?: string;
+    exitOnError?: boolean;
+    hasFixerListener?: boolean;
+}
+const validFormats: Format[] = ['script', 'json', 'jsonlut', 'formatjs'];
 
 export const buildCommand: Command = program
     .createCommand('build')
